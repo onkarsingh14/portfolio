@@ -1,25 +1,25 @@
-/* Built from DESIGN.md — Dark Command Center, L2. Single dark theme by design. */
+/* Built from DESIGN.md — Terminal Green command center, L2. Single dark theme by design. */
 :root {
-  --bg: #070b14;
-  --surface: rgba(255,255,255,.035);
-  --surface-alt: #0b1120;
-  --surface-hover: rgba(255,255,255,.06);
-  --border: rgba(255,255,255,.08);
-  --border-hover: rgba(34,211,238,.45);
-  --text: #e8eef7;
-  --text-secondary: #a3b0c2;
-  --text-tertiary: #67768c;
-  --accent: #22d3ee;
-  --accent-hover: #67e8f9;
-  --accent-2: #8b7cf6;
-  --bg-rgb: 7,11,20;
-  --text-rgb: 232,238,247;
-  --accent-rgb: 34,211,238;
-  --accent-2-rgb: 139,124,246;
-  --success: #34d399; --success-rgb: 52,211,153;
-  --warning: #f5a524; --warning-rgb: 245,165,36;
-  --error: #fb5a76;   --error-rgb: 251,90,118;
-  --p1: var(--error); --p2: var(--warning); --p3: #e8c547; --p4: var(--accent); --p5: #7d8ba3;
+  --bg: #030806;
+  --surface: rgba(6,16,11,.82);          /* near-opaque so text stays readable over the rain */
+  --surface-alt: #06100b;
+  --surface-hover: rgba(10,26,18,.9);
+  --border: rgba(0,255,156,.12);
+  --border-hover: rgba(0,255,156,.55);
+  --text: #e4f7ec;
+  --text-secondary: #9bbcaa;
+  --text-tertiary: #5d7d6b;
+  --accent: #00ff9c;
+  --accent-hover: #6dffc4;
+  --accent-2: #00d4ff;
+  --bg-rgb: 3,8,6;
+  --text-rgb: 228,247,236;
+  --accent-rgb: 0,255,156;
+  --accent-2-rgb: 0,212,255;
+  --success: #4ade80; --success-rgb: 74,222,128;
+  --warning: #fbbf24; --warning-rgb: 251,191,36;
+  --error: #ff4d6d;   --error-rgb: 255,77,109;
+  --p1: var(--error); --p2: var(--warning); --p3: #e8e04a; --p4: var(--accent-2); --p5: #6f8a7c;
   --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
@@ -58,6 +58,13 @@ svg.i { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-widt
 .blob.b3 { width: 40vmax; height: 40vmax; left: 30%; top: 10vmax; background: radial-gradient(circle, rgba(var(--success-rgb), .08), transparent 62%); animation-duration: 34s; animation-delay: -12s; }
 @keyframes drift { 0% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(4vmax, 3vmax, 0) scale(1.08); } 100% { transform: translate3d(-3vmax, 5vmax, 0) scale(.95); } }
 .bgfx.paused .blob { animation-play-state: paused; }
+.net { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: .75; }
+.cursor-glow {
+  position: absolute; left: 0; top: 0; width: 560px; height: 560px; margin: -280px 0 0 -280px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), .13), rgba(var(--accent-2-rgb), .06) 40%, transparent 70%);
+  opacity: 0; transition: opacity .4s, transform .18s ease-out; will-change: transform;
+}
+.cursor-glow.on { opacity: 1; }
 
 /* ---------- nav ---------- */
 .nav {

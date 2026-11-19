@@ -1,9 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { nav } from "../data.js";
+import MatrixRain from "./MatrixRain.jsx";
 import { hms, reduceMotion, useScrollFrame, useUptime } from "../hooks.js";
 
 export function Background() {
   const aurora = useRef(null);
+  const glow = useRef(null);
+  // Moves the soft cursor light without re-rendering React.
+  const onPointer = useCallback((x, y) => {
+    const g = glow.current;
+    if (x == null) { g.classList.remove("on"); return; }
+    g.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    g.classList.add("on");
+  }, []);
   const [paused, setPaused] = useState(false);
   useScrollFrame(() => {
     if (reduceMotion) return;
@@ -14,6 +23,8 @@ export function Background() {
     <div className={`bgfx${paused ? " paused" : ""}`} aria-hidden="true">
       <div className="aurora" ref={aurora}><div className="blob b1" /><div className="blob b2" /><div className="blob b3" /></div>
       <div className="grid" />
+      <MatrixRain onPointer={onPointer} />
+      <div className="cursor-glow" ref={glow} />
     </div>
   );
 }

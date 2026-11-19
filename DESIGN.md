@@ -4,9 +4,9 @@
 
 ## 1. Visual Theme & Atmosphere
 
-**Style**: Dark Command Center (Dark Tech seed, tuned for IT operations)
-**Keywords**: NOC console, signal, severity, calm-under-pressure, telemetry, precision, glass, aurora
-**Tone**: confident, technical, composed — NOT neon cyberpunk, NOT glitchy, NOT gamer
+**Style**: Terminal Green Command Center (Dark Tech seed, tuned for IT operations)
+**Keywords**: NOC console, phosphor terminal, digital rain, signal, severity, calm-under-pressure, telemetry
+**Tone**: confident, technical, composed — NOT glitchy, NOT gamer, NOT RGB-split cyberpunk
 **Feel**: The big screen in a network operations centre at 3 a.m., every graph green, one engineer in control.
 
 **Interaction Tier**: L2 Smooth Interaction
@@ -21,37 +21,38 @@ Single, deliberate dark theme (the page sets `color-scheme: dark` and never foll
 ```css
 :root {
   /* Backgrounds */
-  --bg: #070b14;                 /* page */
-  --surface: rgba(255,255,255,.035);   /* cards / panels */
-  --surface-alt: #0b1120;        /* alternate bands (marquee, contact) */
-  --surface-hover: rgba(255,255,255,.06);
+  --bg: #030806;                 /* page: green-tinted black */
+  --surface: rgba(6,16,11,.82);  /* cards / panels: near-opaque so text reads over the rain */
+  --surface-alt: #06100b;        /* alternate bands (marquee) */
+  --surface-hover: rgba(10,26,18,.9);
 
   /* Borders */
-  --border: rgba(255,255,255,.08);
-  --border-hover: rgba(34,211,238,.45);
+  --border: rgba(0,255,156,.12);
+  --border-hover: rgba(0,255,156,.55);
 
   /* Text */
-  --text: #e8eef7;
-  --text-secondary: #a3b0c2;
-  --text-tertiary: #67768c;
+  --text: #e4f7ec;
+  --text-secondary: #9bbcaa;
+  --text-tertiary: #5d7d6b;
 
   /* Accent */
-  --accent: #22d3ee;             /* signal cyan: links, focus, active */
-  --accent-hover: #67e8f9;
-  --accent-2: #8b7cf6;           /* violet, gradient partner only */
+  --accent: #00ff9c;             /* phosphor green: links, focus, active, rain */
+  --accent-hover: #6dffc4;
+  --accent-2: #00d4ff;           /* cyan, gradient partner only */
 
   /* RGB helpers */
-  --bg-rgb: 7,11,20;
-  --accent-rgb: 34,211,238;
-  --accent-2-rgb: 139,124,246;
+  --bg-rgb: 3,8,6;
+  --text-rgb: 228,247,236;
+  --accent-rgb: 0,255,156;
+  --accent-2-rgb: 0,212,255;
 
   /* Semantic */
-  --success: #34d399;  --success-rgb: 52,211,153;
-  --warning: #f5a524;  --warning-rgb: 245,165,36;
-  --error:   #fb5a76;  --error-rgb: 251,90,118;
+  --success: #4ade80;  --success-rgb: 74,222,128;
+  --warning: #fbbf24;  --warning-rgb: 251,191,36;
+  --error:   #ff4d6d;  --error-rgb: 255,77,109;
 
   /* Severity scale (P1 hottest) */
-  --p1: var(--error); --p2: var(--warning); --p3: #e8c547; --p4: var(--accent); --p5: #7d8ba3;
+  --p1: var(--error); --p2: var(--warning); --p3: #e8e04a; --p4: var(--accent-2); --p5: #6f8a7c;
 }
 ```
 
@@ -226,6 +227,7 @@ Every `a`, `button`, card: hover changes border to `--border-hover` or color to 
 | Animation — element | **Magnet** primary CTA + **ClickSpark** on copy buttons | Hero CTAs, contact |
 | Component | **SpotlightCard** + Bento skills grid; severity ladder cards | Experience, skills |
 | Background | **Aurora** (3 blurred static blobs, transform-only drift) + dot grid mask | Global, behind hero |
+| Background — cursor | **Matrix rain** canvas: 16px columns of katakana, digits and incident letters falling at 30fps with fading green trails and white heads (canvas at 75% opacity). Within 150px of the cursor, streams fall up to 3.5× faster and glow brighter; a click restarts 13 nearby columns at the click point as a burst. Soft green/cyan glow (560px) trails the cursor. Cursor effects only on `(hover: hover)`; touch gets the rain alone; reduced motion draws one static frame. DPR capped at 2. | Global, fixed behind all content |
 
 **Landing "wow" points:**
 1. Hero: decrypting name + live console panel (ticking MTTR clock, typed bridge-call log, SLA meter).
@@ -257,7 +259,7 @@ JS also skips decrypt, typing, count-up, magnet and parallax when reduced motion
 - ❌ No hex literals in component CSS.
 - ❌ No `filter: blur()` on moving elements (aurora blobs are pre-blurred, they only translate).
 - ❌ No `backdrop-filter` above 14px or over large scrolling areas.
-- ❌ No glitch/RGB-split text, scanlines or Matrix rain: this is calm ops, not hacking.
+- ❌ No glitch/RGB-split text or scanlines. The Matrix rain stays in the background layer only, never over text at full strength.
 - ❌ No emoji as icons; inline SVG only.
 - ❌ No `mailto:`/`tel:` as the only way to get contact info; always show selectable text + Copy.
 - ❌ No content hidden at `opacity:0` until scroll without JS adding the hidden state first.
