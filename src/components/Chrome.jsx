@@ -33,6 +33,12 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
   useScrollFrame(() => setScrolled(scrollY > 24));
+  const list = useRef(null);
+  useEffect(() => {
+    // On phones the link row scrolls sideways: keep the current section's link in view.
+    const ul = list.current, a = ul.querySelector(`a[href="#${active}"]`);
+    if (a && ul.scrollWidth > ul.clientWidth) ul.scrollTo({ left: a.offsetLeft - ul.offsetLeft - 8, behavior: reduceMotion ? "auto" : "smooth" });
+  }, [active]);
   useEffect(() => {
     const spy = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && setActive(e.target.id)), { rootMargin: "-45% 0px -50% 0px" });
     document.querySelectorAll("main section[id]").forEach(s => spy.observe(s));
@@ -42,7 +48,7 @@ export function Nav() {
     <nav className={`nav${scrolled ? " scrolled" : ""}`} aria-label="Sections">
       <div className="wrap">
         <a className="logo" href="#top" aria-label="Onkar Singh, back to top"><span className="logo-mark">OS</span><span className="full">Onkar Singh</span></a>
-        <ul>
+        <ul ref={list}>
           {nav.map(([id, label]) => <li key={id}><a href={`#${id}`} className={active === id ? "on" : undefined}>{label}</a></li>)}
         </ul>
       </div>

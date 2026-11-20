@@ -182,7 +182,7 @@ export function Education() {
   );
 }
 
-function CopyLine({ icon, value, copy, what, primary, notify }) {
+function CopyLine({ icon, value, copy, href, what, primary, notify }) {
   const [label, setLabel] = useState("Copy");
   const valRef = useRef(null);
   const onClick = e => {
@@ -203,7 +203,7 @@ function CopyLine({ icon, value, copy, what, primary, notify }) {
   return (
     <div className="cline">
       <Icon name={icon} />
-      <span className="val" ref={valRef}>{value}</span>
+      <a className="val" href={href} ref={valRef}>{value}</a>
       <button className={`btn${primary ? " btn-primary magnet" : ""}`} type="button" onClick={onClick} {...(primary ? magnet : {})}>{label}</button>
     </div>
   );
@@ -218,8 +218,8 @@ export function Contact({ notify }) {
           <SplitHeading text="Need someone" grad="on the bridge?" />
           <p className="sec-lede">Open to Major Incident, Problem and Change Management roles. Copy a detail below and get in touch.</p>
           <div className="contact-lines">
-            <CopyLine icon="mail" value={profile.email} copy={profile.email} what="Email" primary notify={notify} />
-            <CopyLine icon="phone" value={profile.phone.display} copy={profile.phone.value} what="Phone" notify={notify} />
+            <CopyLine icon="mail" value={profile.email} copy={profile.email} href={`mailto:${profile.email}`} what="Email" primary notify={notify} />
+            <CopyLine icon="phone" value={profile.phone.display} copy={profile.phone.value} href={`tel:${profile.phone.value}`} what="Phone" notify={notify} />
             <div className="cline">
               <Icon name="linkedin" />
               <span className="val">{profile.linkedin.display}</span>
